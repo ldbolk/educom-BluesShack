@@ -8,7 +8,7 @@ class Button extends Component {
         super(props);
         this.state = {
             buttonText: this.props.text,
-            activeColor: this.props.active ? Styles.activeColor: Styles.mainColor
+            activeColor: this.props.active ? Styles.mainColor: Styles.mainColor
         }
     }
 

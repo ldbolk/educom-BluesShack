@@ -10,6 +10,7 @@ const page = {
     flex: 1,
     alignItem: 'center',
     justifyContent: 'flex-start'
+    // justifyContent: 'center'
 }
 
 const regularText = {
@@ -18,7 +19,6 @@ const regularText = {
 }
 
 const headerImage = {
-    marginTop: 62,
     width: screenSize.width,
     height: Math.round(screenSize.height / 3),
     resizeMode: 'contain',
@@ -36,7 +36,7 @@ const logo = {
 }
 
 const buttonBar = {
-    backgroundColor: mainColor,
+    backgroundColor: activeColor,
     width: screenSize.width,
     height: 60,
     display: 'flex',
@@ -54,7 +54,9 @@ const button = {
 
 const buttonText = {
     fontSize: 22,
-    color: '#FFF'
+    fontStyle: 'italic',
+    fontWeight: 'bold',
+    color: '#FFF',
 }
 
 export {

@@ -33,27 +33,27 @@ class Homepage extends Component {
     }
 
     renderItem(item) {
-        console.log("You're here")
-        console.log(item)
         let record = item.item;
+        console.log(record.artistName)
         return(
             <View>
-                <Text style={ Styles.buttonText }>{record.artistName}</Text>
+                <Text style={ {fontSize: 22, color: '#FFF', textAlign: 'center', textAlignVertical: 'center'} }>{record.artistName}</Text>
             </View>
         )
     }
 
     renderLists() {
         if(this.state.showAgenda) {
+
             return(
                 <FlatList
                     data={ this.state.data }
                     renderItem={ (item) => this.renderItem(item) }
                     keyExtractor={ item => item.id.toString() }
                 />
+                
             )
         }
-        return(<Text style={ Styles.buttonText }>Show Favorites</Text>)
     }
 
     buttonAgendaClicked() {
@@ -63,7 +63,8 @@ class Homepage extends Component {
     }
 
     buttonFavoriteClicked() {
-        this.setState({
+        this.setState({       
+
             showAgenda: false
         })
     }
@@ -71,7 +72,7 @@ class Homepage extends Component {
     renderContent() {
         if(this.state.isLoaded) {
             return(
-                <React.Fragment>
+                <View style={{ flex: 1} }>
                     <HeaderImage
                         fromHomepage={ true }
                         handler={ this.headerImageClick }
@@ -90,7 +91,7 @@ class Homepage extends Component {
                         />
                     </View>
                     { this.renderLists() }
-                </React.Fragment>
+                </View>
             )
         }
     }
@@ -99,6 +100,24 @@ class Homepage extends Component {
         return(
             <View style={ Styles.page}>
                 { this.renderContent() }
+                    {/* <HeaderImage
+                        fromHomepage={ true }
+                        handler={ this.headerImageClick }
+                        image="https://api.dev-master.ninja/assets/blues-shack/big-creek-slim.jpg"
+                    /> */}
+                    {/* <View style={ Styles.buttonBar }>
+                        <Button 
+                            text="Agenda" 
+                            handler={ this.buttonAgendaClicked }
+                            active={ this.state.showAgenda }
+                        />
+                        <Button 
+                            text="Favorites" 
+                            handler={ this.buttonFavoriteClicked }
+                            active={ this.state.showAgenda }
+                        />
+                    </View> */}
+
             </View>
         )
     }

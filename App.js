@@ -42,12 +42,7 @@ class App extends Component {
     if(this.state.isLoaded) {
       // console.log(this.state.data)
       return(
-        <View>
           <Homepage data={this.state.data}/>
-          {/* <Text style={ Styles.regularText }>
-          <Image source={{uri: img}} style={{height:300, width: 300}}/>
-          </Text> */}
-        </View>
       )
     }
 
