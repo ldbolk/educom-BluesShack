@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, SafeAreaView, Image } from 'react-native';
 import * as Styles from './app/resources/styles/Styles'
 
+import Homepage from './app/views/Homepage';
+import API from './app/lib/API';
+
 const img = "https://picsum.photos/id/1025/4951/3301"
 class App extends Component {
   constructor(props) {
@@ -9,6 +12,7 @@ class App extends Component {
     this.state = {
       isLoaded: false,
       isError: false,
+      timeout: false,
       data: {}
     }
   }
@@ -18,21 +22,31 @@ class App extends Component {
   }
 
   fetchData() {
-    this.setState({
-      isLoaded: true,
-      isError: false,
-      data: {}
+
+    API.fetchData()
+    .then(res => {
+        this.setState({
+            isLoaded: true,
+            isError: false,
+            data: res
+        })
+    })
+    .catch(err => {
+        this.setState({
+            timeout: true
+        })
     })
   }
 
   renderContent() {
     if(this.state.isLoaded) {
+      // console.log(this.state.data)
       return(
         <View>
-          <Text style={ Styles.regularText }>
-            The content of the page
+          <Homepage data={this.state.data}/>
+          {/* <Text style={ Styles.regularText }>
           <Image source={{uri: img}} style={{height:300, width: 300}}/>
-          </Text>
+          </Text> */}
         </View>
       )
     }
