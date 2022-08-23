@@ -10,7 +10,6 @@ const page = {
     flex: 1,
     alignItem: 'center',
     justifyContent: 'flex-start'
-    // justifyContent: 'center'
 }
 
 const regularText = {
@@ -53,14 +52,54 @@ const button = {
 }
 
 const buttonText = {
-    fontSize: 22,
-    fontStyle: 'italic',
-    fontWeight: 'bold',
+    fontSize: 32,
+    fontStyle: 'impact',
+    fontWeight: '400',
     color: '#FFF',
+}
+
+const artistName = {
+    fontStyle: 'Georgia',
+    fontWeight: 'bold',
+    fontSize: 22,
+    color: '#FFF'
+}
+
+const artistDoor = {
+    fontStyle: 'Georgia',
+    fontSize: 16,
+    color: '#7B7B7B',
+}
+
+const renderItemDate = {
+    backgroundColor: mainColor,
+    width: Math.round(screenSize.width / 6),
+    alignItems: 'center',
+}
+
+const renderItemDay = {
+    fontSize: 44,
+    color: '#FFF',
+    fontWeight: 'bold',
+    textAlignMents: 'center'
+}
+
+const renderItemMonth = {
+    fontSize: 12,
+    color: '#FFF',
+    textAlignments: 'center'
+}
+
+const renderItemImage = {
+    height: 87,
+    width: 57,
+    resizzeMode: 'contain'
 }
 
 export {
     mainColor, secondaryColor, activeColor, 
     page, regularText, headerImage, logo, 
-    buttonBar, button, buttonText
+    buttonBar, button, buttonText, renderItemDay,
+    renderItemMonth, renderItemImage, renderItemDate, 
+    artistName, artistDoor
 }

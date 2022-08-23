@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, SafeAreaView, FlatList } from 'react-native';
+import { Image, ImageBackground, View, Text, SafeAreaView, FlatList } from 'react-native';
 import HeaderImage from '../components/HeaderImage';
 import * as Styles from '../resources/styles/Styles';
 import Button from '../components/Button';
+
 
 class Homepage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            months: ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'],
             isLoaded: false,
             isError: false,
             data: this.props.data.data,
@@ -34,12 +36,52 @@ class Homepage extends Component {
 
     renderItem(item) {
         let record = item.item;
-        console.log(record.artistName)
-        return(
-            <View>
-                <Text style={ {fontSize: 22, color: '#FFF', textAlign: 'center', textAlignVertical: 'center'} }>{record.artistName}</Text>
-            </View>
-        )
+        var month = parseInt(record.performanceDate.slice(3, 5))
+        const day = record.performanceDate.slice(0, 2)
+        month = this.state.months[month - 1]
+        const picture = {uri: record.artistImage}
+        console.log(picture)
+        if(record.id % 2 == 0) {
+            return(
+                <View style={{ flexDirection: 'row', borderBottomColor: '#7B7B7B', borderBottomWidth: 1 }}>
+                    <View style={{ width: '68%', alignItems: 'flex-end', marginRight: 3, marginTop: 3}}>
+                        <Text style={ Styles.artistName }>{record.artistName}</Text>
+                        <Text style={ Styles.artistDoor }>Doors open: <Text style={{fontWeight: 'bold', color: '#FFF'}}>{record.doorsOpen}</Text></Text>
+                        <Text style={ Styles.artistDoor }>Tickets: <Text style={{fontWeight: 'bold', color: '#FFF'}}>{record.entranceFee}</Text></Text>
+                    </View>
+                    <View style={{ width: '16%'}}>
+                        <Image
+                            source={ picture }
+                            style={ Styles.renderItemImage }
+                        />
+                    </View>
+                    <View style={ Styles.renderItemDate }>
+                        <Text style={Styles.renderItemDay}>{day}</Text>
+                        <Text style={Styles.renderItemMonth}>{month}</Text>
+                    </View>
+                </View>
+            )
+        } else {
+            return(
+                <View style={{ flexDirection: 'row', borderBottomColor: '#7B7B7B', borderBottomWidth: 1 }}>
+                    <View style={ Styles.renderItemDate }>
+                        <Text style={Styles.renderItemDay}>{day}</Text>
+                        <Text style={Styles.renderItemMonth}>{month}</Text>
+                    </View>
+                    <View style={{ width: '16%', flexDirection: 'row'}}>
+                        <Image
+                            source={ picture }
+                            style={ Styles.renderItemImage }
+                        />
+                    </View>
+                    <View style={{ width: '68%', alignItems: 'flex-start', marginLeft: 3, marginTop: 3 }}>
+                        <Text style={ Styles.artistName }>{record.artistName}</Text>
+                        <Text style={ Styles.artistDoor }>Doors open: <Text style={{fontWeight: 'bold', color: '#FFF'}}>{record.doorsOpen}</Text></Text>
+                        <Text style={ Styles.artistDoor }>Tickets: <Text style={{fontWeight: 'bold', color: '#FFF'}}>{record.entranceFee}</Text></Text>
+                    </View>
+                </View>
+            )
+        }
     }
 
     renderLists() {
@@ -48,7 +90,7 @@ class Homepage extends Component {
             return(
                 <FlatList
                     data={ this.state.data }
-                    renderItem={ (item) => this.renderItem(item) }
+                    renderItem={ (item) => this.renderItem(item) }                          // TODO: Either add the left/right thing here or in the renderItem
                     keyExtractor={ item => item.id.toString() }
                 />
                 
@@ -64,7 +106,6 @@ class Homepage extends Component {
 
     buttonFavoriteClicked() {
         this.setState({       
-
             showAgenda: false
         })
     }
