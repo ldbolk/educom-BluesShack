@@ -40,7 +40,6 @@ class App extends Component {
 
   renderContent() {
     if(this.state.isLoaded) {
-      // console.log(this.state.data)
       return(
           <Homepage data={this.state.data}/>
       )
