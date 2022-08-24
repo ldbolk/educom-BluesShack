@@ -4,11 +4,16 @@ import HeaderImage from '../components/HeaderImage';
 import * as Styles from '../resources/styles/Styles';
 import Button from '../components/Button';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
+
 import DetailPage from './DetailPage';
 
 
 class Homepage extends Component {
     constructor(props) {
+        console.log(props)
         super(props);
         this.state = {
             months: ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'],
@@ -16,7 +21,8 @@ class Homepage extends Component {
             isError: false,
             data: this.props.data.data,
             showAgenda: true,
-            timeout: false
+            timeout: false,
+            navigation: this.props.navigation
         }
 
         this.headerImageClick = this.headerImageClick.bind(this);
@@ -37,10 +43,19 @@ class Homepage extends Component {
     }
 
     handleConcertClick(id) {
-        console.log('hi')
-        return(
-          <DetailPage data={this.state.data} id={id}/>
-        )
+        
+        console.log('r')
+        this.props.navigation.navigate('DetailPage', {id: id})
+        // return(
+        //     <DetailPage />
+        //     <NavigationContainer>
+        //         <Stack.Navigator screenOptions={{headerShown: false}}>
+        //         <Stack.Screen name="Detail">
+        //             {(props) => <DetailPage {...props} data={this.state.data} id={id} />}
+        //         </Stack.Screen>
+        //         </Stack.Navigator>
+        //     </NavigationContainer>
+        // )
     }
 
     renderItem(item) {

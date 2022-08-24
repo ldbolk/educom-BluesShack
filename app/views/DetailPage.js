@@ -10,26 +10,36 @@ class DetailPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoaded: false,
+            isLoaded: true,
             isError: false,
             data: this.props.data,
+            id: this.props.route.params.id,
             timeout: false
         }
+        console.log(' - constructor - ')
+        console.log(this.state)
 
         this.headerImageClick = this.headerImageClick.bind(this);
+        this.buttonFavoriteClicked = this.buttonFavoriteClicked.bind(this);
+        this.buttonTicketsClicked = this.buttonTicketsClicked.bind(this);
     }
 
     componentDidMount() {
-        console.log('DetailcomponentDidMount')
         this.setState({
             isLoaded: true
         })
     }
 
     headerImageClick() {
-        this.setState({
-            showAgenda: false
-        })
+        this.props.navigation.navigate('HomePage')
+    }
+
+    buttonTicketsClicked() {
+        console.log(this.state.id)
+    }
+    
+    buttonFavoriteClicked() {
+        console.log(this.state)
     }
 
     renderContent() {
@@ -46,12 +56,12 @@ class DetailPage extends Component {
                     />
                     <View style={ Styles.buttonBar }>
                         <Button 
-                            text="Agenda" 
-                            handler={ this.buttonAgendaClicked }
+                            text="Tickets" 
+                            handler={ this.buttonTicketsClicked }
                             active={ this.state.showAgenda }
                         />
                         <Button 
-                            text="Favorites" 
+                            text="<3" 
                             handler={ this.buttonFavoriteClicked }
                             active={ this.state.showAgenda }
                         />
