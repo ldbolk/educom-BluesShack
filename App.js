@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { View, Text, SafeAreaView, Image } from 'react-native';
 import * as Styles from './app/resources/styles/Styles'
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,10 +8,45 @@ import HomePage from './app/views/Homepage';
 import DetailPage from './app/views/DetailPage'
 import API from './app/lib/API';
 
+// import db from './FirebaseConfig';
+import {app} from './FirebaseConfig'
+import { getFirestore, collection, query, where, onSnapshot } from '@firebase/firestore'
+const db = getFirestore(app);
+
+
+// import onSnapshot from './app/lib/firebaseGets'
+
+
+// import { initializeApp } from "firebase/app";
+// import { getFirestore, getDocs, query, where } from 'firebase/firestore';
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyC6axchnIfJDXD11QgAMRrpBhm0r2rGm08",
+//   authDomain: "bluesshack-6bc03.firebaseapp.com",
+//   projectId: "bluesshack-6bc03",
+//   storageBucket: "bluesshack-6bc03.appspot.com",
+//   messagingSenderId: "600045252144",
+//   appId: "1:600045252144:web:6e1fbf2f88c3c5ce56c7f5"
+// };
+
+
+
 const Stack = createNativeStackNavigator();
 
-const img = "https://picsum.photos/id/1025/4951/3301"
+// const artistRef = collection(db, 'Artist');
+// const q = query(artistRef, where('artistName', '==', 'Big Creek Slim'))
+
+// onSnapshot(artistRef, (snapshot) => {
+//   let books = []
+//   snapshot.docs.forEach((doc) => {
+//     books.push({ ...doc.data(), id: doc.id })
+//   })
+//   console.log(books)
+//   return books;
+// })
+
 class App extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +61,48 @@ class App extends Component {
     this.fetchData();
   }
 
+  // async getTest() {
+  //   const test = [];
+  //   await collection(db, 'Artist').get()
+  //   .then(querySnapshot => {
+  //     querySnapshot.docs.forEach(doc => {
+  //       test.push(doc.data())
+  //     })
+  //   }) useEffect( () => {
+
+  //  })
+
+  //   console.log(test)
+  // }
+
+  useEffect = (() => {
+    const artistRef = collection(db, 'Artist');
+
+    onSnapshot(artistRef, (snapshot) => {
+      let books = []
+      snapshot.docs.forEach((doc) => {
+          books.push({ ...doc.data(), id: doc.id })
+        })
+        console.log(books)
+        return books
+      })
+    return books
+  })
+
   fetchData() {
+        
+    // const artistRef = collection(db, 'Artist');
+    // const q = query(artistRef, where('artistName', '==', 'Big Creek Slim'))
+
+
+    // onSnapshot(artistRef, (snapshot) => {
+    //     let books = []
+    //     snapshot.docs.forEach((doc) => {
+    //       books.push({ ...doc.data(), id: doc.id })
+    //     })
+    //     console.log(books)
+    //     return books
+    // })
 
     API.fetchData()
     .then(res => {
@@ -45,7 +121,6 @@ class App extends Component {
 
   renderContent() {
     if(this.state.isLoaded) {
-      // console.log(this.state.data)
       return(
         <NavigationContainer>
           <Stack.Navigator screenOptions={{headerShown: false}}>

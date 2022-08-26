@@ -13,11 +13,11 @@ class DetailPage extends Component {
             isLoaded: true,
             isError: false,
             data: this.props.data,
-            id: this.props.route.params.id,
+            record: this.props.route.params.record,
             timeout: false
         }
-        console.log(' - constructor - ')
-        console.log(this.state)
+        // console.log(' - constructor - ')
+        // console.log(this.state)
 
         this.headerImageClick = this.headerImageClick.bind(this);
         this.buttonFavoriteClicked = this.buttonFavoriteClicked.bind(this);
@@ -35,12 +35,35 @@ class DetailPage extends Component {
     }
 
     buttonTicketsClicked() {
-        console.log(this.state.id)
+        console.log(this.state.record)
     }
     
     buttonFavoriteClicked() {
         console.log(this.state)
     }
+
+    renderRecord() {
+        const record = this.state.record
+        const picture = {uri: record.artistImage}
+        return(
+            <View style={{borderBottomColor: '#7B7B7B', borderBottomWidth: 1, alignItems: 'center' }}>
+                <View>
+                    <Text style={ Styles.artistName }>{record.artistName}</Text>
+                    <Text style={ Styles.artistDoor }>Doors open: <Text style={{fontWeight: 'bold', color: '#FFF'}}>{record.doorsOpen}</Text></Text>
+                    <Text style={ Styles.artistDoor }>Tickets: <Text style={{fontWeight: 'bold', color: '#FFF'}}>{record.entranceFee}</Text></Text>
+                    <Text style={ {fontStyle: 'Georgia', fontSize: 16, color: '#FFF'} }>{record.artistDescription}</Text>
+                </View>
+                <View>
+                    <Image
+                        source={ picture }
+                        style={ {width: 227, height: 227} }
+                    />
+                </View>
+            </View>
+            
+        )
+    }
+
 
     renderContent() {
         if(this.state.isLoaded) {
@@ -51,9 +74,10 @@ class DetailPage extends Component {
                         handler={ this.headerImageClick }
                         image="https://api.dev-master.ninja/assets/blues-shack/big-creek-slim.jpg"
                     />
-                    <Image
+                    { this.renderRecord() }
+                    {/* <Image
                     source={ picture }
-                    />
+                    /> */}
                     <View style={ Styles.buttonBar }>
                         <Button 
                             text="Tickets" 

@@ -21,6 +21,7 @@ class API {
             reject({ success: false, error: err });
         })
     })
+
 }
 
 export default API;

@@ -6,6 +6,7 @@ import Button from '../components/Button';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 const Stack = createNativeStackNavigator();
 
 import DetailPage from './DetailPage';
@@ -13,7 +14,7 @@ import DetailPage from './DetailPage';
 
 class Homepage extends Component {
     constructor(props) {
-        console.log(props)
+        // console.log(props)
         super(props);
         this.state = {
             months: ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'],
@@ -42,10 +43,10 @@ class Homepage extends Component {
         })
     }
 
-    handleConcertClick(id) {
+    handleConcertClick(record) {
         
-        console.log('r')
-        this.props.navigation.navigate('DetailPage', {id: id})
+        // console.log('r')
+        this.props.navigation.navigate('DetailPage', {record: record})
         // return(
         //     <DetailPage />
         //     <NavigationContainer>
@@ -66,7 +67,7 @@ class Homepage extends Component {
         const picture = {uri: record.artistImage}
         if(record.id % 2 == 0) {
             return(
-                <TouchableOpacity onPress={ () => this.handleConcertClick(record.id)}>
+                <TouchableOpacity onPress={ () => this.handleConcertClick(record)}>
                     <View style={{ flexDirection: 'row', borderBottomColor: '#7B7B7B', borderBottomWidth: 1 }}>
                         <View style={{ width: '68%', alignItems: 'flex-end', marginRight: 3, marginTop: 3}}>
                             <Text style={ Styles.artistName }>{record.artistName}</Text>
@@ -88,7 +89,7 @@ class Homepage extends Component {
             )
         } else {
             return(
-                <TouchableOpacity onPress={ () => this.handleConcertClick(record.id)}>
+                <TouchableOpacity onPress={ () => this.handleConcertClick(record)}>
                     <View style={{ flexDirection: 'row', borderBottomColor: '#7B7B7B', borderBottomWidth: 1 }}>
                         <View style={ Styles.renderItemDate }>
                             <Text style={Styles.renderItemDay}>{day}</Text>
@@ -117,7 +118,7 @@ class Homepage extends Component {
             return(
                 <FlatList
                     data={ this.state.data }
-                    renderItem={ (item) => this.renderItem(item) }                          // TODO: Either add the left/right thing here or in the renderItem
+                    renderItem={ (item) => this.renderItem(item) }
                     keyExtractor={ item => item.id.toString() }
                 />
                 
