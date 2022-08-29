@@ -120,7 +120,20 @@ class App extends Component {
       
     const userRef = collection(db, 'Users');
     const artistRef = collection(db, 'Artist')
+      const testFavorites = collection(db, 'testFavorites')
+
     const q = query(userRef, where('Name', '==', 'Luc'))
+
+      onSnapshot(testFavorites, (snapshot) => {
+        let favorites = []
+        snapshot.docs.forEach((doc) => {
+          favorites.push({ ...doc.data(), id: doc.id})
+        })
+
+        this.setState({
+          favorites: {data: favorites}
+        })
+      })
 
     onSnapshot(artistRef, (snapshot) => { 
       let artists = []
@@ -135,25 +148,32 @@ class App extends Component {
       })
     })
 
-    onSnapshot(q, (snapshot) => {
-      let favorites = []
-      let pathList = []
+    // onSnapshot(q, (snapshot) => {
+    //   let favorites = []
+    //   let pathList = []
+    //   let favoriteDocuments = []
       
-      snapshot.docs.forEach((doc) => {
-        favorites.push({ ...doc.data(), id: doc.id })
-      })
+    //   snapshot.docs.forEach((doc) => {
+    //     favorites.push({ ...doc.data(), id: doc.id })
+    //   })
       
-      favorites[0].Artists.forEach(e => {
-        console.log(doc(db, e.path).artistName)
-        pathList.push(e.path)
-      });
-      // console.log(pathList)
-      
-      this.setState({
-        favorites: favorites
-      })
+      // favorites[0].Artists.forEach(e => {
+      //   favoriteDocuments.push(doc(db, e.path))
+      //   pathList.push(e.path)
+      // });
 
-    })
+      // const snap = getDoc(favoriteDocuments[0])
+
+      // setTimeout(() => { console.log(snap.data()) }, 300)
+      // console.log('www', snap)
+
+      // setTimeout(() => {  console.log(snap._W._document.data.value.mapValue.fields.artistName.stringValue) }, 500);
+      
+      // this.setState({
+      //   favorites: favorites
+      // })
+
+    // })
     
 
     // const artistRef = collection(db, 'Artist');
@@ -176,14 +196,6 @@ class App extends Component {
     //     return books
     // })
 
-    // API.getFavorites()
-    // .then(res => {
-    //   this.setState({
-    //     favorites: res
-    //   })
-    //   console.log( 'App favorites = ', this.state.favorites)
-    // })
-
     // API.fetchData()
     // .then(res => {
     //   console.log(res)
@@ -203,6 +215,7 @@ class App extends Component {
 
   renderContent() {
     if(this.state.isLoaded) {
+      console.log(this.state.favorites)
       return(
         <NavigationContainer>
           <Stack.Navigator screenOptions={{headerShown: false}}>

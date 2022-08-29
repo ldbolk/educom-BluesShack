@@ -21,13 +21,13 @@ class Homepage extends Component {
     constructor(props) {
         // console.log(props)
         super(props);
-        console.log("Favorites:", this.props.favorites[0])
+        console.log("Favorites:", this.props.favorites)
         this.state = {
             months: ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'],
             isLoaded: false,
             isError: false,
             data: this.props.data.data,
-            favorites: this.props.favorites[0],
+            favorites: this.props.favorites.data,
             showAgenda: true,
             showFavorites: false,
             timeout: false,

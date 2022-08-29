@@ -5,6 +5,10 @@ import * as Styles from '../resources/styles/Styles';
 import Button from '../components/Button';
 import picture from '../../assets/cat.png'
 
+import {app} from '../../FirebaseConfig'
+import { getFirestore, collection, doc, query, where, onSnapshot, getDoc, getDocs, setDoc, arrayUnion, arrayRemove, updateDoc } from '@firebase/firestore'
+const db = getFirestore(app);
+
 
 class DetailPage extends Component {
     constructor(props) {
@@ -35,18 +39,26 @@ class DetailPage extends Component {
     }
 
     buttonTicketsClicked() {
-        console.log(this.state.record)
+        alert('Tickets ordered...    maybe')
+        // console.log(this.state.record)
     }
     
     buttonFavoriteClicked() {
-        console.log(this.state)
+        const path = '/Artist/' + this.state.record.id
+
+        const userCol = collection(db, 'Artist')
+        const current = query(userCol, where('Name', '==', 'Luc'))
+    
+        updateDoc(doc(db, "Users", "1"), { // Lol holy shit this worked
+            Artists: arrayUnion(path)
+        })
     }
 
     renderRecord() {
         const record = this.state.record
         const picture = {uri: record.artistImage}
         return(
-            <View style={{borderBottomColor: '#7B7B7B', borderBottomWidth: 1, alignItems: 'center' }}>
+            <View style={{alignItems: 'center' }}>
                 <View>
                     <Text style={ Styles.artistName }>{record.artistName}</Text>
                     <Text style={ Styles.artistDoor }>Doors open: <Text style={{fontWeight: 'bold', color: '#FFF'}}>{record.doorsOpen}</Text></Text>
@@ -56,7 +68,7 @@ class DetailPage extends Component {
                 <View>
                     <Image
                         source={ picture }
-                        style={ {width: 227, height: 227} }
+                        style={ {width: 350, height: 350} }
                     />
                 </View>
             </View>
@@ -78,7 +90,7 @@ class DetailPage extends Component {
                     {/* <Image
                     source={ picture }
                     /> */}
-                    <View style={ Styles.buttonBar }>
+                    <View style={ Styles.bottomButton }>
                         <Button 
                             text="Tickets" 
                             handler={ this.buttonTicketsClicked }
@@ -88,7 +100,7 @@ class DetailPage extends Component {
                             text="<3" 
                             handler={ this.buttonFavoriteClicked }
                             active={ this.state.showAgenda }
-                        />
+                            />
                     </View>
                 </View>
             )

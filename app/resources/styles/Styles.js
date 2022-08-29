@@ -44,6 +44,13 @@ const buttonBar = {
     justifyContent: "space-between"
 }
 
+const bottomButton = {
+    flex: 1,
+    justifyContent: 'flex-end',
+    flexDirection: 'row',
+    height: 60,
+}
+
 const button = {
     flex: 1,
     alignItems: 'center',
@@ -101,5 +108,5 @@ export {
     page, regularText, headerImage, logo, 
     buttonBar, button, buttonText, renderItemDay,
     renderItemMonth, renderItemImage, renderItemDate, 
-    artistName, artistDoor
+    artistName, artistDoor, bottomButton
 }
