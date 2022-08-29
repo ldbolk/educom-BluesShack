@@ -22,6 +22,39 @@ class API {
         })
     })
 
+    // static getFavorites = () => new Promise( (resolve, reject) => {
+    //     const artistRef = collection(db, 'Artist');
+    //     const q = query(artistRef, where('Name', '==', 'Luc'))
+    //     // const q = query(artistRef, where('artistName', '==', 'Big Creek Slim'))
+    //     const favoriteList = []
+    //     // const querySnapshot = getDocs(q)
+    //     getDocs(artistRef)
+    //     .then(res => {
+    //         console.log(res)
+    //         res.forEach((doc) => {
+    //             favoriteList.push(doc)
+    //         })
+    //     })
+        // console.log('wooooooooooooooooooooooooooooooooooooo', querySnapshot)
+        // querySnapshot.forEach((doc) => {
+        //     favoriteList.push(doc)
+        // })
+
+        // onSnapshot(q, (snapshot) => {
+        //     let books = []
+        //     snapshot.docs.forEach((doc) => {
+        //         books.push({ ...doc.data(), id: doc.id })
+        //     })
+        //     console.log(books)
+        //     return books
+        // })
+
+        // resolve({success: true, data: favoriteList})
+        // if( q == undefined ) {
+        //     reject({ success: false})
+        // }
+    // })
+
 }
 
 export default API;
