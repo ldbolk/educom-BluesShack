@@ -46,6 +46,7 @@ class Homepage extends Component {
     }
 
     headerImageClick() {
+        console.log('it is this one right, ', this.state.favorites)
         this.setState({
             showAgenda: false,
             showFavorites: false
@@ -155,7 +156,6 @@ class Homepage extends Component {
                 <FlatList
                     data={ this.state.favorites }
                     renderItem={ (item) => this.renderFavorite(item) }
-                    keyExtractor={ item => item.id.toString() }
                 />
             )
         }

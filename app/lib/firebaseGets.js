@@ -1,58 +1,28 @@
-// // import db from './FirebaseConfig';
-// import {app} from '../../FirebaseConfig'
-// import { getFirestore, collection, query, where, onSnapshot } from '@firebase/firestore'
-// const db = getFirestore(app);
+import React, { Component, useEffect, useState } from 'react';
+import { View, Text, SafeAreaView, Image } from 'react-native';
+import * as Styles from './app/resources/styles/Styles'
 
-// const artistRef = collection(db, 'Artist');
-// const q = query(artistRef, where('artistName', '==', 'Big Creek Slim'))
-// const artistData = onSnapshot(artistRef)
-// console.log(artistData)
-
-// onSnapshot(artistRef, (snapshot) => {
-//   let books = []
-//   snapshot.docs.forEach((doc) => {
-//     books.push({ ...doc.data(), id: doc.id })
-//   })
-//   console.log(books)
-//   return books;
-// })
-
-// export default onSnapshot;
-
-// const artistRef = collection(db, 'Artist');
-// // const userRef = collection(db, 'User');
-// const q = query(artistRef, where('Name', '==', 'Luc'))
-// // const q = query(artistRef, where('artistName', '==', 'Big Creek Slim'))
-
-// const querySnapshot = await getDocs(q);
-// querySnapshot.forEach((doc) => {
-//   console.log(doc.name, ' => ', doc.data());
-// })
+import {app} from '../../FirebaseConfig'
+import { getFirestore, collection, doc, query, where, onSnapshot, getDoc, getDocs } from '@firebase/firestore'
+const db = getFirestore(app);
 
 
-// onSnapshot(artistRef, (snapshot) => {
-//     let books = []
-//     snapshot.docs.forEach((doc) => {
-//       books.push({ ...doc.data(), id: doc.id })
-//     })
-//     console.log(books)
-//     return books
-// })
-
-// import React, { useState, useEffect } from 'react';
-// import {app} from './FirebaseConfig'
-// import { getFirestore, collection, query, where, onSnapshot, getDocs } from '@firebase/firestore'
-// const db = getFirestore(app);
+const [favorite, setFavorite] = useState([]);
+const [artists, setArtists] = useState([]);
 
 
-// export default function userSnapshot() {
 
-//   const q = query(artistRef, where('Name', '==', 'Luc'))
-//   // const q = query(artistRef, where('artistName', '==', 'Big Creek Slim'))
 
-//   const querySnapshot = await getDocs(q);
-//   querySnapshot.forEach((doc) => {
-//     console.log(doc.name, ' => ', doc.data());
-//   }) 
+const artistRef = collection(db, 'Artist');
+const q = query(artistRef, where('Name', '==', 'Luc'))
 
-// }
+const querySnapshot = await getDocs(q);
+querySnapshot.forEach((doc) => {
+    console.log(doc.name, ' => ', doc.data());
+})
+
+setFavorite()
+
+
+
+// Vragen aan René; waarop moet ik me voorbereiden voor Memic, wat moet ik weten, wat moet ik zeggen etc.

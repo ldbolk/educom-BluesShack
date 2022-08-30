@@ -30,7 +30,6 @@ const db = getFirestore(app);
 // };
 
 
-
 const Stack = createNativeStackNavigator();
 
 // const artistRef = collection(db, 'Artist');
@@ -44,8 +43,6 @@ const Stack = createNativeStackNavigator();
 //   console.log(books)
 //   return books;
 // })
-
-
 
 
 class App extends Component {
@@ -118,49 +115,99 @@ class App extends Component {
 
     fetchData() {
       
-    const userRef = collection(db, 'Users');
-    const artistRef = collection(db, 'Artist')
-      const testFavorites = collection(db, 'testFavorites')
+      const userRef = collection(db, 'Users');
+      const artistRef = collection(db, 'Artist')
+      // const testFavorites = collection(db, 'testFavorites')  // 2 questions: hoe voeg je iets toe als relatie - hoe query je iets obv path
 
-    const q = query(userRef, where('Name', '==', 'Luc'))
+      
+      // onSnapshot(testFavorites, (snapshot) => {
+      //   let favorites = []
+      //   snapshot.docs.forEach((doc) => {
+      //     favorites.push({ ...doc.data(), id: doc.id})
+      //   })
+        
+      //   this.setState({
+      //     favorites: {data: favorites}
+      //   })
+      // })
+      
+      
+      
+      const testDoc = doc(db, '/Artist/1') // doc instead of document because document is used in other languages I think?
+      
+      onSnapshot(testDoc, (snapshot) => { // This works!
+        let test = []
+        test.push(snapshot.data())
+        console.log('wee -----------------', snapshot.data())
+      })
+      
+      
+      // Snapshot can be used to catch specific a user based on userId
+      
 
-      onSnapshot(testFavorites, (snapshot) => {
-        let favorites = []
+      onSnapshot(artistRef, (snapshot) => { 
+        let artists = []
         snapshot.docs.forEach((doc) => {
-          favorites.push({ ...doc.data(), id: doc.id})
+          artists.push({ ...doc.data(), id: doc.id})
         })
-
+         
         this.setState({
-          favorites: {data: favorites}
-        })
-      })
-
-    onSnapshot(artistRef, (snapshot) => { 
-      let artists = []
-      snapshot.docs.forEach((doc) => {
-        artists.push({ ...doc.data(), id: doc.id})
-      })
-
-      this.setState({
-          isLoaded: true,
+          // isLoaded: true,
           isError: false,
           data: {data: artists}
+        })
       })
-    })
+      
+      
+      const q = query(userRef, where('Name', '==', 'Luc')) // query it to for current user
+      // Snapshot based on query
+      let favoriteDocuments = []
+      onSnapshot(q, (snapshot) => {
+        let user = []
+        let pathList = []
+        
+        // user.push(snapshot.data())
+        
+        
+        snapshot.docs.forEach((doc) => {
+          user.push({ ...doc.data(), id: doc.id })
+        })
+        console.log('User: ', user)
+        
+        user[0].Artists.forEach(e => {
+          favoriteDocuments.push(doc(db, e.path))
+          pathList.push(e.path)
+        });
+        
+        
+        let docList = []
+        console.log('-----------------------------------------------------------------------')
+        console.log(favoriteDocuments) // docs that you can use in a snapshot to then snapshot.data();
+        console.log(pathList)// The paths that you can .doc - but why would you, you got the favoritedocs, this is useless, why did I do this
+        console.log('-----------------------------------------------------------------------')
+        
+        
+        favoriteDocuments.forEach((doc) => {
+          onSnapshot(doc, (snapshot) => {
+            docList.push(snapshot.data())
+            console.log('weeeeeeeeeeee', snapshot.data())
+            this.setState({
+              isLoaded: true,
+              favorites: {data: docList}
+            })
+          })
+        })
+        
 
-    // onSnapshot(q, (snapshot) => {
-    //   let favorites = []
-    //   let pathList = []
-    //   let favoriteDocuments = []
-      
-    //   snapshot.docs.forEach((doc) => {
-    //     favorites.push({ ...doc.data(), id: doc.id })
+    })
+    
+    // let test = []
+    // favoriteDocuments.forEach(e => {
+    //   onSnapshot(e, (snapshot) => { 
+    //     test.push(snapshot.data())
+    //     console.log('Newwwwww -----------------', snapshot.data())
     //   })
-      
-      // favorites[0].Artists.forEach(e => {
-      //   favoriteDocuments.push(doc(db, e.path))
-      //   pathList.push(e.path)
-      // });
+    // })
 
       // const snap = getDoc(favoriteDocuments[0])
 
@@ -215,7 +262,7 @@ class App extends Component {
 
   renderContent() {
     if(this.state.isLoaded) {
-      console.log(this.state.favorites)
+      console.log('oh there was one here ', this.state.favorites)
       return(
         <NavigationContainer>
           <Stack.Navigator screenOptions={{headerShown: false}}>
