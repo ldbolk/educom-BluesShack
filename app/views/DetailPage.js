@@ -45,13 +45,15 @@ class DetailPage extends Component {
     
     buttonFavoriteClicked() {
         const path = '/Artist/' + this.state.record.id
+        const item = doc(db, 'Artist', this.state.record.id)
 
         // const userCol = collection(db, 'Artist')
         // const current = query(userCol, where('Name', '==', 'Luc'))
     
         updateDoc(doc(db, "Users", "1"), {                                // Lol holy shit this worked -- replace 1 with userId
-            Artists: arrayUnion(path)
+            Artists: arrayUnion(item)
         })
+        alert("Added to favorites!")
 
     }
 

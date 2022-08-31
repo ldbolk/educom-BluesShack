@@ -13,6 +13,7 @@ import {app} from './FirebaseConfig'
 import { getFirestore, collection, doc, query, where, onSnapshot, getDoc, getDocs } from '@firebase/firestore'
 const db = getFirestore(app);
 
+import useDB from './app/lib/useDB'
 
 // import userSnapshot from './app/lib/firebaseGets'
 
@@ -117,7 +118,7 @@ class App extends Component {
       
       const userRef = collection(db, 'Users');
       const artistRef = collection(db, 'Artist')
-      // const testFavorites = collection(db, 'testFavorites')  // 2 questions: hoe voeg je iets toe als relatie - hoe query je iets obv path
+      // const testFavorites = collection(db, 'testFavorites') 
 
       
       // onSnapshot(testFavorites, (snapshot) => {
