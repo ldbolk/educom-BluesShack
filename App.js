@@ -134,15 +134,6 @@ class App extends Component {
       
       
       
-      const testDoc = doc(db, '/Artist/1') // doc instead of document because document is used in other languages I think?
-      
-      onSnapshot(testDoc, (snapshot) => { // This works!
-        let test = []
-        test.push(snapshot.data())
-        console.log('wee -----------------', snapshot.data())
-      })
-      
-      
       // Snapshot can be used to catch specific a user based on userId
       
 
