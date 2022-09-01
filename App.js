@@ -133,16 +133,6 @@ class App extends Component {
       // })
       
       
-      
-      const testDoc = doc(db, '/Artist/1') // doc instead of document because document is used in other languages I think?
-      
-      onSnapshot(testDoc, (snapshot) => { // This works!
-        let test = []
-        test.push(snapshot.data())
-        console.log('wee -----------------', snapshot.data())
-      })
-      
-      
       // Snapshot can be used to catch specific a user based on userId
       
 
@@ -173,7 +163,6 @@ class App extends Component {
         snapshot.docs.forEach((doc) => {
           user.push({ ...doc.data(), id: doc.id })
         })
-        console.log('User: ', user)
         
         user[0].Artists.forEach(e => {
           favoriteDocuments.push(doc(db, e.path))
@@ -263,7 +252,6 @@ class App extends Component {
 
   renderContent() {
     if(this.state.isLoaded) {
-      console.log('oh there was one here ', this.state.favorites)
       return(
         <NavigationContainer>
           <Stack.Navigator screenOptions={{headerShown: false}}>
